@@ -1,94 +1,131 @@
 import { useEffect, useRef, useState } from "react";
 
-const SCRUB_SRC =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4";
+const IMAGES = [
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.07.44.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.07.51.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.08.01.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.08.12.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.08.21.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.08.28.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.08.41.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.08.47.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.08.53.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.02.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.09.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.17.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.26.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.33.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.40.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.49.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.09.59.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.10.15.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.10.31.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.10.36.png",
+  "/assets/images/Zrzut ekranu 2026-04-30 o 19.10.42.png",
+];
+
+function RandomSlideshow() {
+  const [imageA, setImageA] = useState("");
+  const [imageB, setImageB] = useState("");
+  const [active, setActive] = useState<"A" | "B">("A");
+
+  useEffect(() => {
+    setImageA(IMAGES[Math.floor(Math.random() * IMAGES.length)]);
+  }, []);
+
+  useEffect(() => {
+    if (!imageA) return;
+
+    const interval = setInterval(() => {
+      let next = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+      const current = active === "A" ? imageA : imageB;
+      while (next === current) {
+        next = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+      }
+
+      if (active === "A") {
+        setImageB(next);
+      } else {
+        setImageA(next);
+      }
+
+      setTimeout(() => {
+        setActive((prev) => (prev === "A" ? "B" : "A"));
+      }, 100);
+    }, 3000); // Change image every 3s
+
+    return () => clearInterval(interval);
+  }, [imageA, imageB, active]);
+
+  if (!imageA) return null;
+
+  return (
+    <>
+      <img
+        src={imageA}
+        alt=""
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+          active === "A" ? "opacity-90" : "opacity-0"
+        }`}
+      />
+      <img
+        src={imageB || imageA}
+        alt=""
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+          active === "B" ? "opacity-90" : "opacity-0"
+        }`}
+      />
+    </>
+  );
+}
 
 export function ScrollScrubVideo() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const targetTimeRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const video = videoRef.current;
     const section = sectionRef.current;
-    if (!video || !section) return;
-
-    let duration = 0;
-    const handleMeta = () => {
-      duration = video.duration || 0;
-    };
-    video.addEventListener("loadedmetadata", handleMeta);
-    if (video.readyState >= 1) handleMeta();
+    if (!section) return;
 
     const onScroll = () => {
       const rect = section.getBoundingClientRect();
       const vh = window.innerHeight;
-      // progress: 0 when section top hits viewport top, 1 when section bottom hits viewport bottom
       const total = rect.height - vh;
       const scrolled = Math.min(Math.max(-rect.top, 0), total);
       const p = total > 0 ? scrolled / total : 0;
       setProgress(p);
-      if (duration > 0) {
-        targetTimeRef.current = p * (duration - 0.05);
-      }
-    };
-
-    const tick = () => {
-      const v = videoRef.current;
-      if (v && duration > 0) {
-        const current = v.currentTime;
-        const target = targetTimeRef.current;
-        const diff = target - current;
-        if (Math.abs(diff) > 0.03) {
-          v.currentTime = current + diff * 0.18;
-        }
-      }
-      rafRef.current = requestAnimationFrame(tick);
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    rafRef.current = requestAnimationFrame(tick);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      video.removeEventListener("loadedmetadata", handleMeta);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
   // Story lines fade based on progress
   const lines = [
-    { text: "Każda sekunda", at: 0.15 },
-    { text: "Każda złotówka", at: 0.5 },
-    { text: "Dla nich.", at: 0.85 },
+    { text: "Każda złotówka", at: 0.2 },
+    { text: "Dla nich.", at: 0.7 },
   ];
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full"
-      style={{ height: "220vh" }}
+      style={{ height: "200vh" }}
       aria-label="Cinematic story"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
-        <video
-          ref={videoRef}
-          src={SCRUB_SRC}
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover opacity-90"
-        />
+        <RandomSlideshow />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(127,22,28,0.35) 60%, rgba(0,0,0,0.7) 100%)",
+              "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(127,22,28,0.4) 60%, rgba(0,0,0,0.8) 100%)",
           }}
         />
 
@@ -106,7 +143,7 @@ export function ScrollScrubVideo() {
                   letterSpacing: "-0.02em",
                   opacity,
                   transform: `translateY(${y}px)`,
-                  textShadow: "0 4px 30px rgba(0,0,0,0.6)",
+                  textShadow: "0 4px 30px rgba(0,0,0,0.8)",
                 }}
               >
                 {l.text}

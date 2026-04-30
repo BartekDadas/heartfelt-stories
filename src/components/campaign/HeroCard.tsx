@@ -1,51 +1,39 @@
-import { PiggyBank, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MobileVideoBackground } from "./MobileVideoBackground";
+
+const TARGET = 227803264;
+const GOAL = 250000000;
+
+function formatPLN(n: number) {
+  return n.toLocaleString("pl-PL").replace(/,/g, " ");
+}
 
 export function HeroCard() {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const duration = 2200;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const p = Math.min((t - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setValue(Math.floor(eased * TARGET));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const pct = Math.min((value / GOAL) * 100, 100);
+
   return (
-    <article
-      className="relative overflow-hidden rounded-2xl p-7 text-white shadow-lg md:p-10"
-      style={{
-        background: "linear-gradient(135deg, #7f161c 0%, #551a20 100%)",
-        minHeight: "420px",
-      }}
-    >
-      {/* Faint stars */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        {[
-          { top: "10%", right: "8%", size: 28, op: 0.18 },
-          { top: "30%", right: "22%", size: 18, op: 0.12 },
-          { top: "55%", right: "10%", size: 36, op: 0.15 },
-          { top: "75%", right: "28%", size: 20, op: 0.1 },
-          { top: "20%", right: "40%", size: 14, op: 0.1 },
-          { top: "65%", right: "45%", size: 22, op: 0.08 },
-        ].map((s, i) => (
-          <Star
-            key={i}
-            className="absolute text-white"
-            style={{ top: s.top, right: s.right, opacity: s.op }}
-            size={s.size}
-            strokeWidth={1.2}
-            fill="none"
-          />
-        ))}
-      </div>
-
-      {/* Status badge */}
-      <div
-        className="absolute right-5 top-5 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide text-white/90 backdrop-blur-md"
-        style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.1)" }}
-      >
-        Skarbonka zakończona
-      </div>
-
-      <div className="relative z-10 flex h-full flex-col">
-        <div className="mb-8 flex items-center gap-2 text-white/85">
-          <PiggyBank size={22} strokeWidth={2} />
-          <span className="text-xs font-bold tracking-[0.2em]">SKARBONKA</span>
-        </div>
-
+    <div className="relative flex flex-col items-center justify-center pt-10 pb-8 text-center overflow-hidden rounded-2xl md:overflow-visible md:rounded-none">
+      <MobileVideoBackground />
+      
+      <div className="relative z-10 flex w-full flex-col items-center">
         <h1
-          className="mb-10 text-4xl font-extrabold leading-tight md:text-6xl"
+          className="mb-8 text-5xl font-extrabold leading-tight md:text-7xl"
           style={{
             color: "#ff2a33",
             WebkitTextStroke: "2px #ffffff",
@@ -56,23 +44,46 @@ export function HeroCard() {
           Łatwogang <span style={{ color: "#ffffff", WebkitTextStroke: "0" }}>x</span> Cancer Fighters
         </h1>
 
-        <div className="mt-auto flex items-center gap-4 border-t border-white/15 pt-6">
+        <div className="text-center mb-8 w-full max-w-lg">
+          <div className="text-4xl font-extrabold tabular-nums text-[#26c6b6] md:text-6xl">
+            {formatPLN(value)} zł
+          </div>
+          <div className="mt-3 text-base font-semibold text-[#26c6b6]/80">
+            Wsparty {formatPLN(Math.floor((value / TARGET) * 3230174))} osoby
+          </div>
+
+          {/* Animated progress bar */}
+          <div className="mt-6 w-full">
+            <div className="relative h-3 w-full overflow-hidden rounded-full bg-white/10">
+              <div
+                className="sp-shimmer absolute left-0 top-0 h-full rounded-full transition-[width] duration-100 ease-out"
+                style={{ width: `${pct}%`, background: "linear-gradient(90deg, #26c6b6, #4caf50)" }}
+              />
+            </div>
+            <div className="mt-2 flex justify-between px-1 text-[11px] font-semibold text-white/60">
+              <span>{pct.toFixed(1)}% celu</span>
+              <span>cel: {formatPLN(GOAL)} zł</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-4 flex items-center gap-4 pt-6">
           <div
-            className="h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-white/30"
+            className="h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-white/30"
             style={{
               background: "linear-gradient(135deg, #ffc107, #7f161c)",
             }}
           >
-            <div className="flex h-full w-full items-center justify-center text-lg font-extrabold text-white">
+            <div className="flex h-full w-full items-center justify-center text-base font-extrabold text-white">
               Ł
             </div>
           </div>
-          <div className="leading-tight">
+          <div className="leading-tight text-left">
             <div className="text-[10px] font-bold tracking-[0.18em] text-white/60">ORGANIZATOR:</div>
-            <div className="text-base font-semibold text-white">Łatwogang</div>
+            <div className="text-sm font-semibold text-white">Łatwogang</div>
           </div>
         </div>
       </div>
-    </article>
+    </div>
   );
 }

@@ -6,12 +6,15 @@ export function DescriptionCard() {
         Słucham 9 dni dissu na raka żeby pomóc dzieciom z Fundacji Cancer Fighters. Każda
         złotówka zebrana na stream idzie na Fundację Cancer Fighters.
       </p>
-      <div className="mt-6 rounded-xl border border-[#26c6b6]/30 bg-[#26c6b6]/10 p-4 text-sm text-white/85">
-        Skarbonka została zakończona. Dziękujemy, że byliście{" "}
-        <a href="#" className="font-semibold text-[#26c6b6] hover:underline">
-          z nami
+      <div className="mt-6">
+        <a
+          href="https://dissnaraka.cancerfighters.pl/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block rounded-xl border border-[#26c6b6]/30 bg-[#26c6b6]/10 px-6 py-3 text-sm font-semibold text-[#26c6b6] transition-colors hover:bg-[#26c6b6]/20"
+        >
+          Dowiedz się więcej
         </a>
-        .
       </div>
     </article>
   );

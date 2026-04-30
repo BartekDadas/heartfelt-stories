@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/campaign/Header";
 import { HeroCard } from "@/components/campaign/HeroCard";
-import { StatsCard } from "@/components/campaign/StatsCard";
-import { FloatingVideoCollage } from "@/components/campaign/FloatingVideoCollage";
+import { useState } from "react";
+
+import { FloatingVideoCollage, getUniqueRandomThumbnails } from "@/components/campaign/FloatingVideoCollage";
 import { ScrollScrubVideo } from "@/components/campaign/ScrollScrubVideo";
 import { DescriptionCard } from "@/components/campaign/DescriptionCard";
 import { CommentsSkeleton } from "@/components/campaign/CommentsSkeleton";
@@ -13,6 +14,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [secondCollageThumbs] = useState(() => getUniqueRandomThumbnails(3));
+
   return (
     <div className="min-h-screen bg-[#0d0b0c] text-white">
       <Header />
@@ -20,14 +23,7 @@ function Index() {
       <main>
         {/* Hero + Stats */}
         <section className="mx-auto max-w-[1200px] px-4 pb-10 pt-8 md:px-6 md:pt-12">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-            <div className="md:col-span-2">
-              <HeroCard />
-            </div>
-            <div className="md:col-span-1">
-              <StatsCard />
-            </div>
-          </div>
+          <HeroCard />
         </section>
 
         {/* Storytelling beat 1 — floating collage */}
@@ -61,20 +57,20 @@ function Index() {
           height="h-[520px] md:h-[440px]"
           tiles={[
             {
-              src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+              src: secondCollageThumbs[0],
               className: "col-start-1 col-span-6 row-start-1 row-span-3 md:col-span-5 md:row-span-3",
               rotate: -2,
               bobClass: "sp-bob-slow",
               caption: "Dziękujemy",
             },
             {
-              src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+              src: secondCollageThumbs[1],
               className: "col-start-7 col-span-6 row-start-1 row-span-2 md:col-span-4 md:row-span-2",
               rotate: 3,
               bobClass: "sp-bob",
             },
             {
-              src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+              src: secondCollageThumbs[2],
               className: "col-start-9 col-span-4 row-start-3 row-span-2 md:col-start-9 md:col-span-4 md:row-span-2",
               rotate: -3,
               bobClass: "sp-bob-fast",
