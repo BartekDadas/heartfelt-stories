@@ -64,6 +64,16 @@
 
 :root {
   --radius: 0.625rem;
+  /* siepomaga brand tokens */
+  --sp-cream: #f7f7f4;
+  --sp-text: #333333;
+  --sp-red: #7f161c;
+  --sp-red-dark: #551a20;
+  --sp-teal: #009688;
+  --sp-teal-dark: #00796b;
+  --sp-green: #4caf50;
+  --sp-yellow: #ffc107;
+  --sp-gray: #6b7280;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
