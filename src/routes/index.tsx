@@ -1,26 +1,95 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Header } from "@/components/campaign/Header";
+import { HeroCard } from "@/components/campaign/HeroCard";
+import { StatsCard } from "@/components/campaign/StatsCard";
+import { FloatingVideoCollage } from "@/components/campaign/FloatingVideoCollage";
+import { ScrollScrubVideo } from "@/components/campaign/ScrollScrubVideo";
+import { DescriptionCard } from "@/components/campaign/DescriptionCard";
+import { CommentsSkeleton } from "@/components/campaign/CommentsSkeleton";
+import { Footer } from "@/components/campaign/Footer";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-[#f7f7f4] text-[#333]">
+      <Header />
+
+      <main>
+        {/* Hero + Stats */}
+        <section className="mx-auto max-w-[1200px] px-4 pb-10 pt-8 md:px-6 md:pt-12">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+            <div className="md:col-span-2">
+              <HeroCard />
+            </div>
+            <div className="md:col-span-1">
+              <StatsCard />
+            </div>
+          </div>
+        </section>
+
+        {/* Storytelling beat 1 — floating collage */}
+        <FloatingVideoCollage caption="9 dni dissu na raka. Tysiące osób. Jeden cel." />
+
+        {/* Cinematic scroll-scrub video */}
+        <ScrollScrubVideo />
+
+        {/* Description */}
+        <section className="mx-auto max-w-[1200px] px-4 py-12 md:px-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+            <div className="md:col-span-2">
+              <DescriptionCard />
+            </div>
+            <div className="md:col-span-1">
+              <div className="rounded-2xl bg-white p-6 shadow-md">
+                <h4 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-[#7f161c]">
+                  Dziękujemy
+                </h4>
+                <p className="text-sm leading-relaxed text-gray-600">
+                  Razem zebraliście rekordową kwotę. Każda osoba, która wsparła zbiórkę, dała dzieciom
+                  z Fundacji Cancer Fighters realną szansę.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Storytelling beat 2 — second collage */}
+        <FloatingVideoCollage
+          height="h-[520px] md:h-[440px]"
+          tiles={[
+            {
+              src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+              className: "col-start-1 col-span-6 row-start-1 row-span-3 md:col-span-5 md:row-span-3",
+              rotate: -2,
+              bobClass: "sp-bob-slow",
+              caption: "Dziękujemy",
+            },
+            {
+              src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+              className: "col-start-7 col-span-6 row-start-1 row-span-2 md:col-span-4 md:row-span-2",
+              rotate: 3,
+              bobClass: "sp-bob",
+            },
+            {
+              src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+              className: "col-start-9 col-span-4 row-start-3 row-span-2 md:col-start-9 md:col-span-4 md:row-span-2",
+              rotate: -3,
+              bobClass: "sp-bob-fast",
+              caption: "razem #CancerFighters",
+            },
+          ]}
+        />
+
+        {/* Comments */}
+        <section className="mx-auto max-w-[1200px] px-4 pb-16 md:px-6">
+          <CommentsSkeleton />
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
