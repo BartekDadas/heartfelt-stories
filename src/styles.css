@@ -1,4 +1,5 @@
 @import "tailwindcss" source(none);
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap");
 @source "../src";
 @import "tw-animate-css";
 
@@ -63,6 +64,16 @@
 
 :root {
   --radius: 0.625rem;
+  /* siepomaga brand tokens */
+  --sp-cream: #f7f7f4;
+  --sp-text: #333333;
+  --sp-red: #7f161c;
+  --sp-red-dark: #551a20;
+  --sp-teal: #009688;
+  --sp-teal-dark: #00796b;
+  --sp-green: #4caf50;
+  --sp-yellow: #ffc107;
+  --sp-gray: #6b7280;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
@@ -137,8 +148,25 @@
     border-color: var(--color-border);
   }
 
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+  html, body {
+    font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+    background-color: var(--sp-cream);
+    color: var(--sp-text);
+    -webkit-font-smoothing: antialiased;
   }
 }
+
+@keyframes sp-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.sp-bob { animation: sp-bob 6s ease-in-out infinite; }
+.sp-bob-slow { animation: sp-bob 9s ease-in-out infinite; }
+.sp-bob-fast { animation: sp-bob 4.5s ease-in-out infinite; }
+
+@keyframes sp-pulse-skel {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.sp-skel { animation: sp-pulse-skel 1.6s ease-in-out infinite; }
+
