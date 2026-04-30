@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-[#f7f7f4] text-[#333]">
+    <div className="min-h-screen bg-[#0d0b0c] text-white">
       <Header />
 
       <main>
@@ -43,11 +43,11 @@ function Index() {
               <DescriptionCard />
             </div>
             <div className="md:col-span-1">
-              <div className="rounded-2xl bg-white p-6 shadow-md">
-                <h4 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-[#7f161c]">
+              <div className="rounded-2xl border border-white/10 bg-[#1a1416] p-6 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
+                <h4 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-[#ff2a33]">
                   Dziękujemy
                 </h4>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-white/70">
                   Razem zebraliście rekordową kwotę. Każda osoba, która wsparła zbiórkę, dała dzieciom
                   z Fundacji Cancer Fighters realną szansę.
                 </p>

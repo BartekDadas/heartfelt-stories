@@ -6,14 +6,18 @@ export function Header() {
   const navLinks = ["Zbiórki", "Podopieczni", "Organizacje", "Kampanie"];
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#120f10]/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-3 md:px-6">
-        <a href="/" className="flex items-center gap-2 text-2xl font-extrabold tracking-tight">
-          <span style={{ color: "#7f161c" }}>sie</span>
-          <span style={{ color: "#ffc107" }} className="-ml-2">po</span>
-          <span style={{ color: "#4caf50" }} className="-ml-2">ma</span>
-          <span style={{ color: "#009688" }} className="-ml-2">ga</span>
-          <span className="-ml-2 text-gray-500">.pl</span>
+        <a
+          href="/"
+          className="text-2xl font-extrabold tracking-tight"
+          style={{
+            color: "#ff2a33",
+            WebkitTextStroke: "1.5px #ffffff",
+            letterSpacing: "0.01em",
+          }}
+        >
+          siepomaga<span style={{ color: "#ffffff", WebkitTextStroke: "0" }}>.pl</span>
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex">
@@ -21,7 +25,7 @@ export function Header() {
             <a
               key={l}
               href="#"
-              className="text-[15px] font-semibold text-[#333] transition-colors hover:text-[#009688]"
+              className="text-[15px] font-semibold text-white/80 transition-colors hover:text-[#26c6b6]"
             >
               {l}
             </a>
@@ -29,7 +33,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <span className="hidden rounded-full border-2 border-[#009688] px-3 py-1 text-sm font-bold text-[#009688] md:inline-block">
+          <span className="hidden rounded-full border-2 border-[#26c6b6] px-3 py-1 text-sm font-bold text-[#26c6b6] md:inline-block">
             1,5%
           </span>
           <button
@@ -38,12 +42,12 @@ export function Header() {
           >
             Załóż...
           </button>
-          <button aria-label="Szukaj" className="rounded-full p-2 text-[#333] hover:bg-gray-100" type="button">
+          <button aria-label="Szukaj" className="rounded-full p-2 text-white/80 hover:bg-white/10" type="button">
             <Search size={20} />
           </button>
           <button
             aria-label="Menu"
-            className="rounded-full p-2 text-[#333] hover:bg-gray-100 lg:hidden"
+            className="rounded-full p-2 text-white/80 hover:bg-white/10 lg:hidden"
             type="button"
             onClick={() => setOpen((v) => !v)}
           >
@@ -53,11 +57,11 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-gray-100 bg-white px-4 py-3 lg:hidden">
+        <div className="border-t border-white/10 bg-[#120f10] px-4 py-3 lg:hidden">
           <ul className="flex flex-col gap-3">
             {navLinks.map((l) => (
               <li key={l}>
-                <a href="#" className="block py-1 text-[15px] font-semibold text-[#333]">
+                <a href="#" className="block py-1 text-[15px] font-semibold text-white/85">
                   {l}
                 </a>
               </li>
