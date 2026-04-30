@@ -150,8 +150,8 @@
 
   html, body {
     font-family: "Open Sans", system-ui, -apple-system, sans-serif;
-    background-color: var(--sp-cream);
-    color: var(--sp-text);
+    background-color: #0d0b0c;
+    color: #ececec;
     -webkit-font-smoothing: antialiased;
   }
 }
@@ -169,4 +169,41 @@
   50% { opacity: 1; }
 }
 .sp-skel { animation: sp-pulse-skel 1.6s ease-in-out infinite; }
+
+/* Flying-in video tiles */
+@keyframes sp-fly-tl {
+  0% { transform: translate3d(-120vw, -60vh, 0) rotate(-25deg) scale(0.6); opacity: 0; }
+  70% { opacity: 1; }
+  100% { transform: translate3d(0,0,0) rotate(var(--rot, 0deg)) scale(1); opacity: 1; }
+}
+@keyframes sp-fly-tr {
+  0% { transform: translate3d(120vw, -50vh, 0) rotate(25deg) scale(0.6); opacity: 0; }
+  70% { opacity: 1; }
+  100% { transform: translate3d(0,0,0) rotate(var(--rot, 0deg)) scale(1); opacity: 1; }
+}
+@keyframes sp-fly-bl {
+  0% { transform: translate3d(-110vw, 70vh, 0) rotate(-15deg) scale(0.5); opacity: 0; }
+  70% { opacity: 1; }
+  100% { transform: translate3d(0,0,0) rotate(var(--rot, 0deg)) scale(1); opacity: 1; }
+}
+@keyframes sp-fly-br {
+  0% { transform: translate3d(110vw, 70vh, 0) rotate(15deg) scale(0.5); opacity: 0; }
+  70% { opacity: 1; }
+  100% { transform: translate3d(0,0,0) rotate(var(--rot, 0deg)) scale(1); opacity: 1; }
+}
+.sp-fly { opacity: 0; animation-duration: 1.1s; animation-timing-function: cubic-bezier(.2,.8,.2,1); animation-fill-mode: forwards; }
+.sp-fly-tl { animation-name: sp-fly-tl; }
+.sp-fly-tr { animation-name: sp-fly-tr; }
+.sp-fly-bl { animation-name: sp-fly-bl; }
+.sp-fly-br { animation-name: sp-fly-br; }
+
+@keyframes sp-progress-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.sp-shimmer {
+  background: linear-gradient(90deg, #009688 0%, #4caf50 30%, #ffc107 50%, #4caf50 70%, #009688 100%);
+  background-size: 200% 100%;
+  animation: sp-progress-shimmer 3s linear infinite;
+}
 

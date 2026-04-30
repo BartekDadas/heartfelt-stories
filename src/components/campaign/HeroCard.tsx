@@ -44,8 +44,16 @@ export function HeroCard() {
           <span className="text-xs font-bold tracking-[0.2em]">SKARBONKA</span>
         </div>
 
-        <h1 className="mb-10 text-3xl font-extrabold leading-tight md:text-5xl">
-          Łatwogang <span className="text-white/70">x</span> Cancer Fighters
+        <h1
+          className="mb-10 text-4xl font-extrabold leading-tight md:text-6xl"
+          style={{
+            color: "#ff2a33",
+            WebkitTextStroke: "2px #ffffff",
+            textShadow: "0 4px 24px rgba(0,0,0,0.45)",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          Łatwogang <span style={{ color: "#ffffff", WebkitTextStroke: "0" }}>x</span> Cancer Fighters
         </h1>
 
         <div className="mt-auto flex items-center gap-4 border-t border-white/15 pt-6">
