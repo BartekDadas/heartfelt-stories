@@ -148,8 +148,25 @@
     border-color: var(--color-border);
   }
 
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+  html, body {
+    font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+    background-color: var(--sp-cream);
+    color: var(--sp-text);
+    -webkit-font-smoothing: antialiased;
   }
 }
+
+@keyframes sp-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.sp-bob { animation: sp-bob 6s ease-in-out infinite; }
+.sp-bob-slow { animation: sp-bob 9s ease-in-out infinite; }
+.sp-bob-fast { animation: sp-bob 4.5s ease-in-out infinite; }
+
+@keyframes sp-pulse-skel {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.sp-skel { animation: sp-pulse-skel 1.6s ease-in-out infinite; }
+
